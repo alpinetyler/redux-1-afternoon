@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import store, { ADD_INSTRUCTION, ADD_RECIPE } from "./../../store"
+import store, { ADD_INSTRUCTION, ADD_RECIPE, RESET_FIELDS} from "./../../store"
 
 class Instructions extends Component {
   constructor(props) {
@@ -35,11 +35,16 @@ class Instructions extends Component {
     input: ""
   });
   }
-create() {
-  store.dispatch({
-    type: ADD_RECIPE
+async create() {
+  await store.dispatch({
+    type: ADD_RECIPE,
   })// Create new recipe in Redux state
+  store.dispatch({
+    type: RESET_FIELDS
+  })//Black Diamond Reset Fields
 }
+
+
 render() {
   const instructions = this.state.instructions.map((instruction, i) => {
     return <li key={i}>{instruction}</li>;
